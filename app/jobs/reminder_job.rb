@@ -8,7 +8,7 @@ class ReminderJob < ApplicationJob
 
     message = client.messages.create(
       body: 'Hello from rails!',
-      messaging_service_sid: Rails.application.credentials.dig(:twilio, :message_service_id),
+      messaging_service_sid: ENV['TWILIO_MESSAGE_SERVICE_ID'],
       to: phone_number
     )
   end
@@ -17,8 +17,8 @@ class ReminderJob < ApplicationJob
 
   def client
     @client ||= Twilio::REST::Client.new(
-      Rails.application.credentials.dig(:twilio, :account_sid),
-      Rails.application.credentials.dig(:twilio, :account_auth_token)
+      ENV['TWILIO_ACCOUNT_SID'],
+      ENV['TWILIO_AUTH_TOKEN']
     )
   end
 end
