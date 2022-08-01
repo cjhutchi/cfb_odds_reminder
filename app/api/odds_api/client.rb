@@ -1,9 +1,9 @@
 module OddsApi
   class Client
     def self.get_odds_for_week(date)
-      host = ENV['ODDS_API_HOST']
-      path = ENV['ODDS_API_PATH']
-      api_key = ENV['ODDS_API_KEY']
+      host = Rails.application.credentials.dig(:odds_api, :host)
+      path = Rails.application.credentials.dig(:odds_api, :path)
+      api_key = Rails.application.credentials.dig(:odds_api, :api_key)
 
       url = URI::HTTPS.build(host: host, path: path, query: "regions=us&oddsFormat=american&markets=spreads&api_key=#{api_key}")
 
