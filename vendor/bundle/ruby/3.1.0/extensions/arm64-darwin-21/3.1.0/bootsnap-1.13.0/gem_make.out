@@ -1,0 +1,15 @@
+current directory: /Users/chris/Code/cfb_odds_reminder/vendor/bundle/ruby/3.1.0/gems/bootsnap-1.13.0/ext/bootsnap
+/Users/chris/.asdf/installs/ruby/3.1.2/bin/ruby -I /Users/chris/.asdf/installs/ruby/3.1.2/lib/ruby/3.1.0 -r ./siteconf20220801-38532-b0nfxl.rb extconf.rb
+creating Makefile
+
+current directory: /Users/chris/Code/cfb_odds_reminder/vendor/bundle/ruby/3.1.0/gems/bootsnap-1.13.0/ext/bootsnap
+make DESTDIR\= clean
+
+current directory: /Users/chris/Code/cfb_odds_reminder/vendor/bundle/ruby/3.1.0/gems/bootsnap-1.13.0/ext/bootsnap
+make DESTDIR\=
+compiling bootsnap.c
+linking shared-object bootsnap/bootsnap.bundle
+
+current directory: /Users/chris/Code/cfb_odds_reminder/vendor/bundle/ruby/3.1.0/gems/bootsnap-1.13.0/ext/bootsnap
+make DESTDIR\= install
+/opt/homebrew/bin/ginstall -c -m 0755 bootsnap.bundle ./.gem.20220801-38532-bx12b1/bootsnap

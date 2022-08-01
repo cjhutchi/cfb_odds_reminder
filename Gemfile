@@ -8,7 +8,6 @@ gem 'rack-cors'
 gem 'rails', '~> 7.0.3', '>= 7.0.3.1'
 gem 'pg'
 gem 'twilio-ruby', '~> 5.70.0'
-gem 'whenever', require: false
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
