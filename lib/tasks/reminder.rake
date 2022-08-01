@@ -1,5 +1,6 @@
 namespace :reminder do
-  desc "TODO"
+  desc "Send reminders"
+
   task cfb_odds: :environment do
     ReminderJob.perform_now
   end
