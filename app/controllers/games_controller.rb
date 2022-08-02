@@ -1,6 +1,5 @@
-class GameController < ApplicationController
+class GamesController < ApplicationController
   def index
-    # TODO: Probably should split this out into a presenter
     response = Game.games_for_current_week.map do |game|
       {
         home_team: game.home_team.name,
