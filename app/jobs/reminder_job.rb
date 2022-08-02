@@ -7,7 +7,8 @@ class ReminderJob < ApplicationJob
     phone_number = '+16147537095'
 
     message = client.messages.create(
-      body: 'Hello from rails!',
+      # TODO: Date should be just current date
+      body: Game.top_25_games_for(Date.parse("27-08-2022")),
       messaging_service_sid: Rails.application.credentials.dig(:twilio, :message_service_id),
       to: phone_number
     )
