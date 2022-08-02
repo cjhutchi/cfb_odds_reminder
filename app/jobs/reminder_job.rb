@@ -4,6 +4,7 @@ class ReminderJob < ApplicationJob
   queue_as :default
 
   def perform(*args)
+    # TODO: make it so it can text a list of people
     phone_number = '+16147537095'
 
     message = client.messages.create(

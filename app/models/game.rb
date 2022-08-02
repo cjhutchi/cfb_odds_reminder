@@ -2,6 +2,7 @@ class Game < ApplicationRecord
   belongs_to :home_team, class_name: "Team"
   belongs_to :away_team, class_name: "Team"
 
+  # TODO: Maybe split this into a helper
   WEEK_DATES = {
     1 => Date.parse("30-08-2022"),
     2 => Date.parse("06-09-2022"),

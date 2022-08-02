@@ -1,6 +1,7 @@
 module OddsApi
   class Client
     def self.get_odds_for_week(date)
+      # TODO: Break out into request builder
       host = Rails.application.credentials.dig(:odds_api, :host)
       path = Rails.application.credentials.dig(:odds_api, :path)
       api_key = Rails.application.credentials.dig(:odds_api, :api_key)
