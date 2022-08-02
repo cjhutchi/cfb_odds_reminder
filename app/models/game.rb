@@ -25,8 +25,9 @@ class Game < ApplicationRecord
     20 => Date.parse("10-01-2023"),
   }.freeze
 
-  def self.games_for_week(week)
-    Game.where(commence_time: WEEK_DATES[week] - 7.days..WEEK_DATES[week])
+  def self.games_for_current_week
+    current_week = WEEK_DATES.find { |_week_num, date| date > Date.today }[0]
+    Game.where(commence_time: WEEK_DATES[current_week] - 7.days..WEEK_DATES[current_week])
   end
 
   def self.top_25_games_for(date)
