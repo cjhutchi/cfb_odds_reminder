@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  resources :games
+  get 'games/current_week', to: 'games#current_week'
 end
