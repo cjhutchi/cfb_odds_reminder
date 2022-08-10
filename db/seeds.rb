@@ -22,7 +22,6 @@ WEEK_DATES_2022 = {
 }.freeze
 
 WEEK_DATES_2022.each do |number, dates|
-  puts "dates: #{dates}"
   Week.find_or_create_by(
     number: number,
     start_date: dates[:start_date],
