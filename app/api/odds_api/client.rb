@@ -1,6 +1,6 @@
 module OddsApi
   class Client
-    def self.get_odds_for_week(date)
+    def self.get_odds_for_week(week)
       host = Rails.application.credentials.dig(:odds_api, :host)
       path = Rails.application.credentials.dig(:odds_api, :path)
       api_key = Rails.application.credentials.dig(:odds_api, :api_key)
@@ -9,8 +9,8 @@ module OddsApi
 
       JSON.parse(Net::HTTP.get(url)).map { |game| game.deep_symbolize_keys }.select do |game|
         game_date = Date.parse(game[:commence_time])
-        game_date < date + 7.days &&
-            game_date > date
+        game_date < week.end_date &&
+            game_date > week.start_date
       end
     end
   end

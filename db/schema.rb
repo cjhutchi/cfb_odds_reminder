@@ -33,8 +33,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_09_213100) do
   end
 
   create_table "weeks", force: :cascade do |t|
-    t.date "end_date"
-    t.integer "number"
+    t.date "start_date", null: false
+    t.date "end_date", null: false
+    t.integer "number", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

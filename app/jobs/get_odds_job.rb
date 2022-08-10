@@ -2,7 +2,7 @@ class GetOddsJob < ApplicationJob
   queue_as :default
 
   def perform(*args)
-    odds = OddsApi::Client.get_odds_for_week(args[0])
+    odds = OddsApi::Client.get_odds_for_week(Week.current)
 
     odds.each do |game|
       create_game(game)
