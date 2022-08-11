@@ -23,7 +23,7 @@ class GamesController < ApplicationController
   private
 
   def rank(school)
-    ranking = top_25.find { |rank| rank["name"] == school }
+    ranking = top_25.find { |rank| rank["school"] == school }
 
     if ranking.present?
       ranking["rank"]
