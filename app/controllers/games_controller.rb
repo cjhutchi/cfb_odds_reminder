@@ -15,7 +15,7 @@ class GamesController < ApplicationController
           away_team_points: game.away_team_points
         }
       end
-    end
+    end.compact
 
     response = {
       current_week: Week.current.number,
