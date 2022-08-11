@@ -30,7 +30,6 @@ class GetOddsJob < ApplicationJob
   end
 
   def create_game(game)
-    puts "home_team: #{game[:home_team]}"
     home_team = get_team(game[:home_team])
     away_team = get_team(game[:away_team])
     commence_time = Time.zone.parse(game[:commence_time])

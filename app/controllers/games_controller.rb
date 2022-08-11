@@ -4,7 +4,7 @@ class GamesController < ApplicationController
       {
         home_team: "#{game.home_team.school} #{game.home_team.mascot}",
         home_team_rank: rank(game.home_team.school),
-        away_team: "#{game.home_team.school} #{game.home_team.mascot}",
+        away_team: "#{game.away_team.school} #{game.away_team.mascot}",
         away_team_rank: rank(game.away_team.school),
         commence_time: game.commence_time,
         home_team_points: game.home_team_points,
