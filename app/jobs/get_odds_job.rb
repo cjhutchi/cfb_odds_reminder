@@ -11,16 +11,35 @@ class GetOddsJob < ApplicationJob
 
   private
 
+  def get_team(full_name)
+    team = Team.find { |team| "#{team.school} #{team.mascot}" == full_name }
+
+    return team unless team.nil?
+
+    team = Team.find { |team| "#{team.alt_name_1} #{team.mascot}" == full_name }
+
+    return team unless team.nil?
+
+    team = Team.find { |team| "#{team.alt_name_2} #{team.mascot}" == full_name }
+
+    return team unless team.nil?
+
+    team = Team.find { |team| "#{team.alt_name_3} #{team.mascot}" == full_name }
+
+    return team
+  end
+
   def create_game(game)
-    home_team = Team.find_or_create_by(name: game[:home_team])
-    away_team = Team.find_or_create_by(name: game[:away_team])
+    puts "home_team: #{game[:home_team]}"
+    home_team = get_team(game[:home_team])
+    away_team = get_team(game[:away_team])
     commence_time = Time.zone.parse(game[:commence_time])
     home_team_points = game[:bookmakers].select { |bookie| bookie[:key] == 'unibet' }.first
     home_team_points = game[:bookmakers].select { |bookie| bookie[:key] == 'unibet' }.first[:markets].select { |market| market[:key] == "spreads" 
-      }.first[:outcomes].select { |outcome| outcome[:name] == home_team.name
+      }.first[:outcomes].select { |outcome| outcome[:name] == game[:home_team]
        }.first[:point]
     away_team_points = game[:bookmakers].select { |bookie| bookie[:key] == 'unibet' }.first[:markets].select { |market| market[:key] == "spreads" 
-        }.first[:outcomes].select { |outcome| outcome[:name] == away_team.name
+        }.first[:outcomes].select { |outcome| outcome[:name] == game[:away_team]
          }.first[:point]
 
     Game.create(

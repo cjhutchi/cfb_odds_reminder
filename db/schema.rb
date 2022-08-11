@@ -27,7 +27,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_09_213100) do
   end
 
   create_table "teams", force: :cascade do |t|
-    t.string "name", null: false
+    t.string "school", null: false
+    t.string "mascot"
+    t.string "alt_name_1"
+    t.string "alt_name_2"
+    t.string "alt_name_3"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

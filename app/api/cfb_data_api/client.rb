@@ -18,6 +18,15 @@ module CfbDataApi
       )
     end
 
+    def self.teams
+      api_key = Rails.application.credentials.dig(:cfb_data_api, :api_key)
+      uri = URI("https://api.collegefootballdata.com/teams")
+
+      JSON.parse(
+        Net::HTTP.get(uri, {'Authorization' => "Bearer #{api_key}"})
+      )
+    end
+
     private
 
     def self.parse_rankings(response)

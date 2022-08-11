@@ -27,3 +27,13 @@ WEEK_DATES_2022.each do |number, dates|
     end_date: dates[:end_date]
   )
 end
+
+CfbDataApi::Client.teams.each do |team|
+  Team.find_or_create_by!(
+    school: team["school"].remove("'"),
+    mascot: team["mascot"],
+    alt_name_1: team["alt_name1"],
+    alt_name_2: team["alt_name2"],
+    alt_name_3: team["alt_name3"]
+  )
+end
