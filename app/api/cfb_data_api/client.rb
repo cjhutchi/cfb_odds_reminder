@@ -6,7 +6,7 @@ module CfbDataApi
       api_key = Rails.application.credentials.dig(:cfb_data_api, :api_key)
       # Currently no rankings yet
       # current_year = Time.zone.now.year
-      current_year = 2021
+      current_year = 2022
       current_week = Week.current.number
 
       uri = URI("https://api.collegefootballdata.com/rankings?year=#{current_year}&week=#{current_week}&seasonType=regular")
