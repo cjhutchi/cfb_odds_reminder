@@ -28,11 +28,11 @@ class ReminderJob < ApplicationJob
   end
 
   def body
-    @body ||= Game.games_for_current_week do |game|
+    Game.games_for_current_week.map do |game|
       if game.home_team_points.to_i < 0
-        "#{game.away_team.name} @ #{game.home_team.name} (#{game.home_team_points})"
+        "#{game.away_team.school } @ #{game.home_team.school} (#{game.home_team_points})"
       else
-        "#{game.away_team.name} (#{game.away_team_points}) @ #{game.home_team.name}"
+        "#{game.away_team.school} (#{game.away_team_points}) @ #{game.home_team.school}"
       end
     end.join("\n")
   end
