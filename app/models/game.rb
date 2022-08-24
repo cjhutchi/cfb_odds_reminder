@@ -5,5 +5,6 @@ class Game < ApplicationRecord
 
   def self.top_25_this_week
     Team.where.not(rank: nil).map { |team| team.current_week_game }.flatten.uniq
+        .sort_by { |game| game.commence_time }
   end
 end
