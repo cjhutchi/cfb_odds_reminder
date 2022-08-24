@@ -27,13 +27,18 @@ class ReminderJob < ApplicationJob
     )
   end
 
+  def build_team_string(team, points)
+    team_string = team.school
+    team_string.prepend("#{team.rank} ") if team.rank.present?
+    team_string.concat("(#{points})") if points.to_f <= 0
+    team_string
+  end
+
   def body
     Game.top_25_this_week.map do |game|
-      if game.home_team_points.to_i < 0
-        "#{game.away_team.school } @ #{game.home_team.school} (#{game.home_team_points})"
-      else
-        "#{game.away_team.school} (#{game.away_team_points}) @ #{game.home_team.school}"
-      end
+      home_team_string = build_team_string(game.home_team, game.home_team_points)
+      away_team_string = build_team_string(game.away_team, game.away_team_points)
+      "#{away_team_string} @ #{home_team_string}"
     end.join("\n")
   end
 end

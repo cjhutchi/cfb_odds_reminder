@@ -4,6 +4,6 @@ class Game < ApplicationRecord
   belongs_to :week
 
   def self.top_25_this_week
-    Team.where.not(rank: nil).map { |team| team.current_week_game }.flatten
+    Team.where.not(rank: nil).map { |team| team.current_week_game }.flatten.uniq
   end
 end
