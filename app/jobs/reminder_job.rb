@@ -28,7 +28,7 @@ class ReminderJob < ApplicationJob
   end
 
   def body
-    Game.games_for_current_week.map do |game|
+    Game.top_25_this_week.map do |game|
       if game.home_team_points.to_i < 0
         "#{game.away_team.school } @ #{game.home_team.school} (#{game.home_team_points})"
       else

@@ -20,10 +20,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_09_213100) do
     t.datetime "commence_time", null: false
     t.string "home_team_points", null: false
     t.string "away_team_points", null: false
+    t.bigint "week_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["away_team_id"], name: "index_games_on_away_team_id"
     t.index ["home_team_id"], name: "index_games_on_home_team_id"
+    t.index ["week_id"], name: "index_games_on_week_id"
   end
 
   create_table "teams", force: :cascade do |t|
@@ -32,6 +34,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_09_213100) do
     t.string "alt_name_1"
     t.string "alt_name_2"
     t.string "alt_name_3"
+    t.integer "rank"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

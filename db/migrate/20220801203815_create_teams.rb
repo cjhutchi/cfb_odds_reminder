@@ -6,6 +6,7 @@ class CreateTeams < ActiveRecord::Migration[7.0]
       t.string :alt_name_1
       t.string :alt_name_2
       t.string :alt_name_3
+      t.integer :rank
 
       t.timestamps
     end

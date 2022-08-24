@@ -1,6 +1,8 @@
 class GetOddsJob < ApplicationJob
   queue_as :default
 
+  ODDS_MAKER = "unibet".freeze
+
   def perform(*args)
     odds = OddsApi::Client.get_odds_for_week(Week.current)
 
@@ -29,24 +31,39 @@ class GetOddsJob < ApplicationJob
     return team
   end
 
+  def parse_spread(game)
+    bookmakers = game[:bookmakers]
+    unibet = bookmakers.find { |bookmaker| bookmaker[:key] == ODDS_MAKER }
+
+    if unibet.present?
+      spreads = unibet[:markets].find { |market| market[:key] == 'spreads' }
+
+      if spreads.present?
+        spreads[:outcomes]
+      end
+    end
+  end
+
   def create_game(game)
     home_team = get_team(game[:home_team])
     away_team = get_team(game[:away_team])
     commence_time = Time.zone.parse(game[:commence_time])
-    home_team_points = game[:bookmakers].select { |bookie| bookie[:key] == 'unibet' }.first
-    home_team_points = game[:bookmakers].select { |bookie| bookie[:key] == 'unibet' }.first[:markets].select { |market| market[:key] == "spreads" 
-      }.first[:outcomes].select { |outcome| outcome[:name] == game[:home_team]
-       }.first[:point]
-    away_team_points = game[:bookmakers].select { |bookie| bookie[:key] == 'unibet' }.first[:markets].select { |market| market[:key] == "spreads" 
-        }.first[:outcomes].select { |outcome| outcome[:name] == game[:away_team]
-         }.first[:point]
 
-    Game.create(
-      home_team_id: home_team.id,
-      away_team_id: away_team.id,
-      commence_time: commence_time,
-      home_team_points: home_team_points,
-      away_team_points: away_team_points
-    )
+    spread = parse_spread(game)
+
+    if spread.present?
+      home_team_spread = spread.find { |team| team[:name] == "#{home_team.school} #{home_team.mascot}" }
+
+      if home_team_spread.present?
+        Game.create(
+          home_team_id: home_team.id,
+          away_team_id: away_team.id,
+          commence_time: commence_time,
+          home_team_points: home_team_spread[:point],
+          away_team_points: -home_team_spread[:point],
+          week_id: Week.current.id
+        )
+      end
+    end
   end
 end
