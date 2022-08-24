@@ -9,6 +9,8 @@ class CreateGames < ActiveRecord::Migration[7.0]
       t.string :home_team_points, null: false
       t.string :away_team_points, null: false
 
+      t.references :week, null: :false
+
       t.timestamps
     end
   end
