@@ -55,14 +55,27 @@ class GetOddsJob < ApplicationJob
       home_team_spread = spread.find { |team| team[:name] == "#{home_team.school} #{home_team.mascot}" }
 
       if home_team_spread.present?
-        Game.create(
+        game = Game.find_by(
           home_team_id: home_team.id,
           away_team_id: away_team.id,
-          commence_time: commence_time,
-          home_team_points: home_team_spread[:point],
-          away_team_points: -home_team_spread[:point],
           week_id: Week.current.id
         )
+
+        if game.present?
+          game.update!(
+            home_team_points: home_team_spread[:point],
+            away_team_points: -home_team_spread[:point]
+          )
+        else
+          Game.create(
+            home_team_id: home_team.id,
+            away_team_id: away_team.id,
+            commence_time: commence_time,
+            home_team_points: home_team_spread[:point],
+            away_team_points: -home_team_spread[:point],
+            week_id: Week.current.id
+          )
+        end
       end
     end
   end
