@@ -1,7 +1,7 @@
 class GetOddsJob < ApplicationJob
   queue_as :default
 
-  ODDS_MAKER = "unibet".freeze
+  ODDS_MAKER = "barstool".freeze
 
   def perform(*args)
     odds = OddsApi::Client.get_odds_for_week(Week.current)
@@ -49,6 +49,9 @@ class GetOddsJob < ApplicationJob
     away_team = get_team(game[:away_team])
     commence_time = Time.zone.parse(game[:commence_time])
 
+    if away_team.nil?
+      puts "GAME:: #{game}"
+    end
     spread = parse_spread(game)
 
     if spread.present?
