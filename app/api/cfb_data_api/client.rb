@@ -4,8 +4,6 @@ module CfbDataApi
 
     def self.get_rankings
       api_key = Rails.application.credentials.dig(:cfb_data_api, :api_key)
-      # Currently no rankings yet
-      # current_year = Time.zone.now.year
       current_year = 2022
       current_week = Week.current.number
 
